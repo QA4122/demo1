@@ -13,6 +13,7 @@ namespace Shopdemo1.Repository
         bool Update(Product product);
         bool Delete(string productCode);
         bool Save();
+        public int GetSameDate();
     }
     public class ProductRepository : IProductRepository
     {
@@ -63,6 +64,15 @@ namespace Shopdemo1.Repository
         public Product GetByProductName(string productName)
         {
             return context.products.Where(c => c.ProductName == productName).FirstOrDefault();
+        }
+
+        public int GetSameDate()
+        {
+            DateTime today = DateTime.Now;
+            DateTime start = new DateTime(today.Year, today.Month, today.Day);
+            var finish = start.AddDays(1);
+            int count = context.products.Where(c => c.CreateDate >= start && c.CreateDate <= finish).AsNoTracking().ToList().Count;
+            return count;
         }
 
         public bool Save()

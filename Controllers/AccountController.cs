@@ -91,7 +91,7 @@ namespace Shopdemo1.Controllers
         public IActionResult SignUp(Account account)
         {
             var acc = _accoutRepository.GetByUsername(account.Username);
-            if (acc = = null)
+            if (acc == null)
             {
                 var add = _accoutRepository.AddAccount(account);
                 if (!add)
@@ -152,12 +152,12 @@ namespace Shopdemo1.Controllers
         [HttpDelete("del-account")]
         public IActionResult DeleteAccount(string username)
         {
-            var prof = _profileReository.GetById(username);
+            var prof = _profileReository.GetByAcc(username);
             if (prof != null)
             {
-                var del = profileRepository.DeleteProfile((int)prof.Id);
+                var del = _profileReository.Delete((int)prof.CustomerId);
             }
-            var rs = accoutRepository.DeleteAccount(username);
+            var rs = _accoutRepository.DeleteAccount(username);
             if (rs)
             {
                 return Ok(new
